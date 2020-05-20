@@ -1,244 +1,663 @@
-#include <iostream>
+#include <SFML/Graphics.hpp>
 
-using namespace std;
+using namespace sf;
 
-int main(void)
+RenderWindow window(VideoMode(800, 600), "Labyrinth"); //создание окна
+
+Image image;
+Texture texture;
+Sprite sprite;
+
+int mass[13][13] =
 {
-	int pole[13][13] =
-	{
-		6, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 7, 0,
-		10, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 10, 20,
-		10, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 10, 21,
-		10, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 10, 22,
-		10, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 10, 23,
-		10, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 10, 24,
-		10, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 10, 25,
-		10, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 10, 26,
-		10, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 10, 27,
-		10, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 10, 28,
-		10, 0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 10, 29,
-		9, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 8, 0,
-		0, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 0, 0
-	};
-	int exit = 0;
+1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 1,  0,
+1,  2,  1,  0,  0,  0,  0,  0,  0,  1,  0, 1, 11,
+1,  0,  1,  1,  0,  1,  1,  1,  0,  1,  0, 1, 12,
+1,  3,  0,  1,  0,  0,  0,  1,  0,  1,  0, 1, 13,
+1,  0,  0,  1,  1,  1,  1,  1,  0,  1,  0, 1, 14,
+1,  4,  0,  0,  0,  0,  0,  1,  0,  1,  0, 1, 15,
+1,  0,  1,  1,  0,  1,  0,  1,  0,  1,  0, 1, 16,
+1, 21, 31,  1,  0,  1,  1,  1,  0,  1,  0, 1, 17,
+1,  1,  1,  1,  0,  0,  0,  0,  0,  1,  0, 1, 18,
+1,  0,  1,  1,  0,  1,  1,  1,  1,  1,  0, 1, 19,
+1, 22, 32,  0, 23, 33,  0, 34, 24,  0,  0, 1, 20,
+1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 1,  0,
+0, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 0,  0,
+};
 
-	while (exit == 0)
-	{
-		int stroka = 0; // выбор строки
-		int stolbec = 0; // выбор столбца
-		int select = 0; // выбор элемента установки
-		int g_select = 0; // выбор между строиться, играть и выйти
-		int have_exit = 0;
+void show()
+{
+    for (int i = 0; i < 13; ++i)
+    {
+        for (int j = 0; j < 13; ++j)
+        {
+            switch (mass[i][j])
+            {
+            case 1:
+            {
+                image.loadFromFile("images/wall.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
 
-		system("cls");
-		for (int i = 0; i <= 12; ++i)
-		{
-			for (int j = 0; j <= 12; ++j)
-			{
-				if (pole[i][j] == 0)
-					cout << ' ';
-				else if (pole[i][j] == 1)
-					cout << (char)206;
-				else if (pole[i][j] == 2)
-					cout << (char)204;
-				else if (pole[i][j] == 3)
-					cout << (char)185;
-				else if (pole[i][j] == 4)
-					cout << (char)203;
-				else if (pole[i][j] == 5)
-					cout << (char)202;
-				else if (pole[i][j] == 6)
-					cout << (char)201;
-				else if (pole[i][j] == 7)
-					cout << (char)187;
-				else if (pole[i][j] == 8)
-					cout << (char)188;
-				else if (pole[i][j] == 9)
-					cout << (char)200;
-				else if (pole[i][j] == 10)
-					cout << (char)186;
-				else if (pole[i][j] == 11)
-					cout << (char)205;
-				else if (pole[i][j] == 12)
-					cout << "X";
-				else if (pole[i][j] == 20)
-					cout << 0;
-				else if (pole[i][j] == 21)
-					cout << 1;
-				else if (pole[i][j] == 22)
-					cout << 2;
-				else if (pole[i][j] == 23)
-					cout << 3;
-				else if (pole[i][j] == 24)
-					cout << 4;
-				else if (pole[i][j] == 25)
-					cout << 5;
-				else if (pole[i][j] == 26)
-					cout << 6;
-				else if (pole[i][j] == 27)
-					cout << 7;
-				else if (pole[i][j] == 28)
-					cout << 8;
-				else if (pole[i][j] == 29)
-					cout << 9;
-			}
-			cout << endl;
-		}
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 2:
+            {
+                image.loadFromFile("images/trap.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
 
-		cout << "What to do?" << endl;
-		cout << "1 - Continue" << endl;
-		cout << "2 - Start play" << endl;
-		cout << "3 - Exit" << endl;
-		cin >> g_select;
-		if (g_select == 1)
-		{
-			cout << "Enter stroka:" << endl;
-			cin >> stroka;
-			cout << "Enter stolbec:" << endl;
-			cin >> stolbec;
-			if (stroka == -1)
-			{
-				for (int i = 1; i < 10; ++i)
-				{
-					if (pole[0][i] == 0)
-					{
-						cout << "Already have exit here" << endl;
-						have_exit = 1;
-						system("pause");
-					}
-				}
-			}
-			if (stroka == 10)
-			{
-				for (int i = 1; i < 10; ++i)
-				{
-					if (pole[11][i] == 0)
-					{
-						cout << "Already have exit here" << endl;
-						have_exit = 1;
-						system("pause");
-					}
-				}
-			}
-			if (stolbec == -1)
-			{
-				for (int i = 1; i < 10; ++i)
-				{
-					if (pole[i][0] == 0)
-					{
-						cout << "Already have exit here" << endl;
-						have_exit = 1;
-						system("pause");
-					}
-				}
-			}
-			if (stolbec == 10)
-			{
-				for (int i = 1; i < 10; ++i)
-				{
-					if (pole[i][11] == 0)
-					{
-						cout << "Already have exit here" << endl;
-						have_exit = 1;
-						system("pause");
-					}
-				}
-			}
-			if (stroka == -1 && stolbec == -1 || stroka == -1 && stolbec == 10 || stroka == 10 && stolbec == -1 || stroka == 10 && stolbec == 10)
-			{
-				cout << "You can't delete this" << endl;
-				system("pause");
-			}
-			else if (have_exit != 1)
-			{
-				if (stroka == -1 || stroka == 10 || stolbec == -1 || stolbec == 10)
-				{
-					pole[stroka + 1][stolbec + 1] = 0;
-				}
-				else
-				{
-					pole[stroka + 1][stolbec + 1] = 12;
-					system("cls");
-					for (int i = 0; i <= 12; ++i)
-					{
-						for (int j = 0; j <= 12; ++j)
-						{
-							if (pole[i][j] == 0)
-								cout << ' ';
-							else if (pole[i][j] == 1)
-								cout << (char)206;
-							else if (pole[i][j] == 2)
-								cout << (char)204;
-							else if (pole[i][j] == 3)
-								cout << (char)185;
-							else if (pole[i][j] == 4)
-								cout << (char)203;
-							else if (pole[i][j] == 5)
-								cout << (char)202;
-							else if (pole[i][j] == 6)
-								cout << (char)201;
-							else if (pole[i][j] == 7)
-								cout << (char)187;
-							else if (pole[i][j] == 8)
-								cout << (char)188;
-							else if (pole[i][j] == 9)
-								cout << (char)200;
-							else if (pole[i][j] == 10)
-								cout << (char)186;
-							else if (pole[i][j] == 11)
-								cout << (char)205;
-							else if (pole[i][j] == 12)
-								cout << "X";
-							else if (pole[i][j] == 20)
-								cout << 0;
-							else if (pole[i][j] == 21)
-								cout << 1;
-							else if (pole[i][j] == 22)
-								cout << 2;
-							else if (pole[i][j] == 23)
-								cout << 3;
-							else if (pole[i][j] == 24)
-								cout << 4;
-							else if (pole[i][j] == 25)
-								cout << 5;
-							else if (pole[i][j] == 26)
-								cout << 6;
-							else if (pole[i][j] == 27)
-								cout << 7;
-							else if (pole[i][j] == 28)
-								cout << 8;
-							else if (pole[i][j] == 29)
-								cout << 9;
-						}
-						cout << endl;
-					}
-					cout << "Select element: " << endl;
-					cout << "0 - Clear" << endl;
-					cout << "1 - " << (char)206 << endl;
-					cout << "2 - " << (char)204 << endl;
-					cout << "3 - " << (char)185 << endl;
-					cout << "4 - " << (char)203 << endl;
-					cout << "5 - " << (char)202 << endl;
-					cout << "6 - " << (char)201 << endl;
-					cout << "7 - " << (char)187 << endl;
-					cout << "8 - " << (char)188 << endl;
-					cout << "9 - " << (char)200 << endl;
-					cout << "10 - " << (char)186 << endl;
-					cout << "11 - " << (char)205 << endl;
-					cout << "13 - Select another" << endl;
-					cin >> select;
-					if (select != 13)
-						pole[stroka + 1][stolbec + 1] = select;
-				}
-			}
-		}
-		else if (g_select == 2)
-		{
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 3:
+            {
+                image.loadFromFile("images/trasure.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
 
-		}
-		else if (g_select == 3)
-			exit = 1;
-	}
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 4:
+            {
+                image.loadFromFile("images/trasure.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
 
-	return 0;
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 11:
+            {
+                image.loadFromFile("images/1.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 12:
+            {
+                image.loadFromFile("images/2.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 13:
+            {
+                image.loadFromFile("images/3.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 14:
+            {
+                image.loadFromFile("images/4.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 15:
+            {
+                image.loadFromFile("images/5.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 16:
+            {
+                image.loadFromFile("images/6.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 17:
+            {
+                image.loadFromFile("images/7.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 18:
+            {
+                image.loadFromFile("images/8.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 19:
+            {
+                image.loadFromFile("images/9.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 20:
+            {
+                image.loadFromFile("images/10.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 21:
+            {
+                image.loadFromFile("images/pit_in_1.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 22:
+            {
+                image.loadFromFile("images/pit_in_2.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 23:
+            {
+                image.loadFromFile("images/pit_in_3.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 24:
+            {
+                image.loadFromFile("images/pit_in_4.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 31:
+            {
+                image.loadFromFile("images/pit_out_1.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 32:
+            {
+                image.loadFromFile("images/pit_out_2.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 33:
+            {
+                image.loadFromFile("images/pit_out_3.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 34:
+            {
+                image.loadFromFile("images/pit_out_4.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+                break;
+            }
+            case 90:
+            {
+                image.loadFromFile("images/select.png");
+                texture.loadFromImage(image);
+                sprite.setTexture(texture);
+
+                sprite.setPosition((float)(j * 10), (float)(i * 10));
+                window.draw(sprite);
+
+                break;
+            }
+            default:
+                break;
+            }
+        }
+    }
+
+}
+
+int main()
+{
+    Font font;
+    font.loadFromFile("CyrilicOld.ttf");
+    Text text("", font, 20);
+    text.setFillColor(Color::White);
+
+    int width = 0;
+    int heigth = 0;
+    int menu = 0;
+
+    while (window.isOpen()) //пока открыто окно
+    {
+        switch (menu)
+        {
+        case 0:
+        {
+            window.clear(); //очистить
+            show();
+            text.setString("Select mod:");
+            text.setPosition(150, 0);
+            window.draw(text);
+            text.setString("1 - Buidl");
+            text.setPosition(160, 20);
+            window.draw(text);
+            text.setString("2 - Play");
+            text.setPosition(160, 40);
+            window.draw(text);
+            text.setString("3 - Exit");
+            text.setPosition(160, 60);
+            window.draw(text);
+
+            window.display(); //показать
+
+            while (menu == 0)
+            {
+                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                    menu = 1;
+                else if (Keyboard::isKeyPressed(Keyboard::Num2))
+                    menu = 2;
+                else if (Keyboard::isKeyPressed(Keyboard::Num3))
+                    menu = 3;
+            }
+
+            while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
+
+            break;
+        }
+        case 1:
+        {
+            window.clear(); //очистить
+            show();
+            text.setString("Build mod:");
+            text.setPosition(150, 0);
+            window.draw(text);
+            text.setString("1 - Select position");
+            text.setPosition(160, 20);
+            window.draw(text);
+            text.setString("2 - Exit");
+            text.setPosition(160, 40);
+            window.draw(text);
+
+            window.display(); //показать
+
+            while (menu == 1)
+            {
+                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                    menu = 4;
+                else if (Keyboard::isKeyPressed(Keyboard::Num2))
+                    menu = 0;
+            }
+            while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
+
+            break;
+        }
+        case 2:
+        {
+
+            break;
+        }
+        case 3:
+        {
+            window.close();
+            while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
+            break;
+        }
+        case 4:
+        {
+            window.clear(); //очистить
+            show();
+            if (width == 0 && heigth == 0)
+            {
+                text.setString("Select width:");
+                text.setPosition(150, 0);
+                window.draw(text);
+                window.display(); //показать
+            }
+
+            while (width == 0 && heigth == 0)
+            {
+                window.clear(); //очистить
+                show();
+                while (width == 0)
+                {
+                    if (Keyboard::isKeyPressed(Keyboard::Num1))
+                    {
+                        width = 1;
+                        text.setString("Selected width: 1");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num2))
+                    {
+                        width = 2;
+                        text.setString("Selected width: 2");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num3))
+                    {
+                        width = 3;
+                        text.setString("Selected width: 3");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num4))
+                    {
+                        width = 4;
+                        text.setString("Selected width: 4");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num5))
+                    {
+                        width = 5;
+                        text.setString("Selected width: 5");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num6))
+                    {
+                        width = 6;
+                        text.setString("Selected width: 6");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num7))
+                    {
+                        width = 7;
+                        text.setString("Selected width: 7");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num8))
+                    {
+                        width = 8;
+                        text.setString("Selected width: 8");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num9))
+                    {
+                        width = 9;
+                        text.setString("Selected width: 9");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num0))
+                    {
+                        width = 10;
+                        text.setString("Selected width: 10");
+                    }
+                }
+                text.setPosition(150, 0);
+                window.draw(text);
+                window.display(); //показать
+                while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
+
+                window.clear(); //очистить
+                show();
+                if (width == 1)
+                    text.setString("Selected width: 1");
+                else if (width == 2)
+                    text.setString("Selected width: 2");
+                else if (width == 3)
+                    text.setString("Selected width: 3");
+                else if (width == 4)
+                    text.setString("Selected width: 4");
+                else if (width == 5)
+                    text.setString("Selected width: 5");
+                else if (width == 6)
+                    text.setString("Selected width: 6");
+                else if (width == 7)
+                    text.setString("Selected width: 7");
+                else if (width == 8)
+                    text.setString("Selected width: 8");
+                else if (width == 9)
+                    text.setString("Selected width: 9");
+                else if (width == 10)
+                    text.setString("Selected width: 10");
+
+                text.setPosition(150, 0);
+                window.draw(text);
+                window.display(); //показать
+
+                text.setString("Select heigth:");
+                text.setPosition(150, 20);
+                window.draw(text);
+                window.display(); //показать
+
+                while (heigth == 0)
+                {
+                    if (Keyboard::isKeyPressed(Keyboard::Num1))
+                    {
+                        heigth = 1;
+                        text.setString("Selected heigth: 1");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num2))
+                    {
+                        heigth = 2;
+                        text.setString("Selected heigth: 2");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num3))
+                    {
+                        heigth = 3;
+                        text.setString("Selected heigth: 3");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num4))
+                    {
+                        heigth = 4;
+                        text.setString("Selected heigth: 4");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num5))
+                    {
+                        heigth = 5;
+                        text.setString("Selected heigth: 5");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num6))
+                    {
+                        heigth = 6;
+                        text.setString("Selected heigth: 6");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num7))
+                    {
+                        heigth = 7;
+                        text.setString("Selected heigth: 7");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num8))
+                    {
+                        heigth = 8;
+                        text.setString("Selected heigth: 8");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num9))
+                    {
+                        heigth = 9;
+                        text.setString("Selected heigth: 9");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num0))
+                    {
+                        heigth = 10;
+                        text.setString("Selected heigth: 10");
+                    }
+                }
+                text.setPosition(150, 20);
+                window.draw(text);
+                window.display(); //показать
+                while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
+            }
+
+            mass[width][heigth] = 90;
+            menu = 5;
+
+            break;
+        }
+        case 5:
+        {
+            window.clear(); //очистить
+            show();
+            text.setString("What to do:");
+            text.setPosition(150, 0);
+            window.draw(text);
+            text.setString("1 - Buidl");
+            text.setPosition(160, 20);
+            window.draw(text);
+            text.setString("2 - Clear");
+            text.setPosition(160, 40);
+            window.draw(text);
+
+            window.display(); //показать
+
+            while (menu == 5)
+            {
+                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                    menu = 6;
+                else if (Keyboard::isKeyPressed(Keyboard::Num2))
+                {
+                    mass[width][heigth] = 0;
+                    width = heigth = 0;
+                    menu = 1;
+                }
+            }
+            while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
+
+            break;
+        }
+        case 6:
+        {
+            window.clear(); //очистить
+            show();
+            text.setString("What to build:");
+            text.setPosition(150, 0);
+            window.draw(text);
+            text.setString("1 - Wall");
+            text.setPosition(160, 20);
+            window.draw(text);
+            text.setString("2 - Trap");
+            text.setPosition(160, 40);
+            window.draw(text);
+            text.setString("3 - pit in");
+            text.setPosition(160, 60);
+            window.draw(text);
+            text.setString("4 - pit out");
+            text.setPosition(160, 80);
+            window.draw(text);
+            text.setString("5 - trasure");
+            text.setPosition(160, 100);
+            window.draw(text);
+            text.setString("6 - Exit");
+            text.setPosition(160, 120);
+            window.draw(text);
+
+            window.display(); //показать
+
+            while (menu == 6)
+            {
+                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                {
+
+                    mass[width][heigth] = 1;
+                    for (int i = 1; i < 11; ++i)
+                    {
+                        for (int j = 1; j < 11; j++)
+                        {
+                            if (mass[i][j] == 0)
+                            {
+                                text.setString("Already have");
+                                text.setPosition(300, 00);
+                                window.draw(text);
+                                window.display(); //показать
+                            }
+                            else
+                            {
+                                mass[width][heigth] = 2;
+                                width = heigth = 0;
+                                menu = 1;
+                            }
+                        }
+                    }
+                    width = heigth = 0;
+                    menu = 1;
+                }
+                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                {
+                    for (int i = 0; i < 13; ++i)
+                    {
+                        for (int j = 0; j < 13; j++)
+                        {
+                            if (mass[i][j] == 2)
+                            {
+                                text.setString("Already have");
+                                text.setPosition(300, 00);
+                                window.draw(text);
+                                window.display(); //показать
+                            }
+                            else
+                            {
+                                mass[width][heigth] = 2;
+                                width = heigth = 0;
+                                menu = 1;
+                            }
+                        }
+                    }
+                }
+                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                    menu = 7;
+                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                    menu = 8;
+                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                    menu = 9;
+                else if (Keyboard::isKeyPressed(Keyboard::Num2))
+                {
+                    width = heigth = 0;
+                    menu = 1;
+                }
+            }
+            //while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
+
+            break;
+        }
+        default:
+            break;
+        }
+
+    }
+
+    return 0;
 }
