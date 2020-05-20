@@ -591,66 +591,184 @@ int main()
             {
                 if (Keyboard::isKeyPressed(Keyboard::Num1))
                 {
-
                     mass[width][heigth] = 1;
-                    for (int i = 1; i < 11; ++i)
-                    {
-                        for (int j = 1; j < 11; j++)
-                        {
-                            if (mass[i][j] == 0)
-                            {
-                                text.setString("Already have");
-                                text.setPosition(300, 00);
-                                window.draw(text);
-                                window.display(); //показать
-                            }
-                            else
-                            {
-                                mass[width][heigth] = 2;
-                                width = heigth = 0;
-                                menu = 1;
-                            }
-                        }
-                    }
                     width = heigth = 0;
                     menu = 1;
                 }
-                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                if (Keyboard::isKeyPressed(Keyboard::Num2))
                 {
-                    for (int i = 0; i < 13; ++i)
-                    {
-                        for (int j = 0; j < 13; j++)
-                        {
-                            if (mass[i][j] == 2)
-                            {
-                                text.setString("Already have");
-                                text.setPosition(300, 00);
-                                window.draw(text);
-                                window.display(); //показать
-                            }
-                            else
-                            {
-                                mass[width][heigth] = 2;
-                                width = heigth = 0;
-                                menu = 1;
-                            }
-                        }
-                    }
+                    mass[width][heigth] = 2;
+                    width = heigth = 0;
+                    menu = 1;
                 }
-                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                if (Keyboard::isKeyPressed(Keyboard::Num3))
                     menu = 7;
-                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                if (Keyboard::isKeyPressed(Keyboard::Num4))
                     menu = 8;
-                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                if (Keyboard::isKeyPressed(Keyboard::Num5))
                     menu = 9;
-                else if (Keyboard::isKeyPressed(Keyboard::Num2))
+                else if (Keyboard::isKeyPressed(Keyboard::Num6))
                 {
                     width = heigth = 0;
                     menu = 1;
                 }
             }
-            //while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
+            while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
 
+            break;
+        }
+        case 7:
+        {
+            window.clear(); //очистить
+            show();
+            text.setString("Select pit:");
+            text.setPosition(150, 0);
+            window.draw(text);
+            text.setString("1 - Pit 1");
+            text.setPosition(160, 20);
+            window.draw(text);
+            text.setString("2 - Pit 2");
+            text.setPosition(160, 40);
+            window.draw(text);
+            text.setString("3 - Pit 3");
+            text.setPosition(160, 60);
+            window.draw(text);
+            text.setString("4 - Pit 4");
+            text.setPosition(160, 80);
+            window.draw(text);
+            text.setString("5 - Back");
+            text.setPosition(160, 100);
+            window.draw(text);
+
+            window.display(); //показать
+
+            while (menu == 7)
+            {
+                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                {
+                    mass[width][heigth] = 21;
+                    width = heigth = 0;
+                    menu = 1;
+                }
+                else if (Keyboard::isKeyPressed(Keyboard::Num2))
+                {
+                    mass[width][heigth] = 22;
+                    width = heigth = 0;
+                    menu = 1;
+                }
+                else if (Keyboard::isKeyPressed(Keyboard::Num3))
+                {
+                    mass[width][heigth] = 23;
+                    width = heigth = 0;
+                    menu = 1;
+                }
+                else if (Keyboard::isKeyPressed(Keyboard::Num4))
+                {
+                    mass[width][heigth] = 24;
+                    width = heigth = 0;
+                    menu = 1;
+                }
+                else if (Keyboard::isKeyPressed(Keyboard::Num5))
+                    menu = 6;
+            }
+            while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
+
+            break;
+        }
+        case 8:
+        {
+            window.clear(); //очистить
+            show();
+            text.setString("Select pit:");
+            text.setPosition(150, 0);
+            window.draw(text);
+            text.setString("1 - Pit 1");
+            text.setPosition(160, 20);
+            window.draw(text);
+            text.setString("2 - Pit 2");
+            text.setPosition(160, 40);
+            window.draw(text);
+            text.setString("3 - Pit 3");
+            text.setPosition(160, 60);
+            window.draw(text);
+            text.setString("4 - Pit 4");
+            text.setPosition(160, 80);
+            window.draw(text);
+            text.setString("5 - Back");
+            text.setPosition(160, 100);
+            window.draw(text);
+
+            window.display(); //показать
+
+            while (menu == 8)
+            {
+                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                {
+                    mass[width][heigth] = 31;
+                    width = heigth = 0;
+                    menu = 1;
+                }
+                else if (Keyboard::isKeyPressed(Keyboard::Num2))
+                {
+                    mass[width][heigth] = 32;
+                    width = heigth = 0;
+                    menu = 1;
+                }
+                else if (Keyboard::isKeyPressed(Keyboard::Num3))
+                {
+                    mass[width][heigth] = 33;
+                    width = heigth = 0;
+                    menu = 1;
+                }
+                else if (Keyboard::isKeyPressed(Keyboard::Num4))
+                {
+                    mass[width][heigth] = 34;
+                    width = heigth = 0;
+                    menu = 1;
+                }
+                else if (Keyboard::isKeyPressed(Keyboard::Num5))
+                    menu = 6;
+            }
+            while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
+            break;
+        }
+        case 9:
+        {
+            window.clear(); //очистить
+            show();
+            text.setString("Select trasure:");
+            text.setPosition(150, 0);
+            window.draw(text);
+            text.setString("1 - Real");
+            text.setPosition(160, 20);
+            window.draw(text);
+            text.setString("2 - Unreal");
+            text.setPosition(160, 40);
+            window.draw(text);
+            text.setString("3 - Back");
+            text.setPosition(160, 60);
+            window.draw(text);
+
+            window.display(); //показать
+
+            while (menu == 9)
+            {
+                if (Keyboard::isKeyPressed(Keyboard::Num1))
+                {
+                    mass[width][heigth] = 3;
+                    width = heigth = 0;
+                    menu = 1;
+                }
+                else if (Keyboard::isKeyPressed(Keyboard::Num2))
+                {
+                    mass[width][heigth] = 4;
+                    width = heigth = 0;
+                    menu = 1;
+                }
+                else if (Keyboard::isKeyPressed(Keyboard::Num3))
+                    menu = 6;
+            }
+            while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
             break;
         }
         default:
