@@ -279,8 +279,8 @@ int main()
     Text text("", font, 20);
     text.setFillColor(Color::White);
 
-    int width = 0;
-    int heigth = 0;
+    int width = -1;
+    int heigth = -1;
     int menu = 0;
 
     while (window.isOpen()) //пока открыто окно
@@ -331,7 +331,7 @@ int main()
             text.setPosition(160, 20);
             window.draw(text);
             text.setString("2 - Exit");
-            text.setPosition(160, 40);
+            text.setPosition(160, 60);
             window.draw(text);
 
             window.display(); //показать
@@ -362,7 +362,7 @@ int main()
         {
             window.clear(); //очистить
             show();
-            if (width == 0 && heigth == 0)
+            if (width == -1 && heigth == -1)
             {
                 text.setString("Select width:");
                 text.setPosition(150, 0);
@@ -370,13 +370,23 @@ int main()
                 window.display(); //показать
             }
 
-            while (width == 0 && heigth == 0)
+            while (width == -1 && heigth == -1)
             {
                 window.clear(); //очистить
                 show();
-                while (width == 0)
+                while (width == -1)
                 {
-                    if (Keyboard::isKeyPressed(Keyboard::Num1))
+                    if (Keyboard::isKeyPressed(Keyboard::Up))
+                    {
+                        width = 0;
+                        text.setString("Selected width: 0");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Down))
+                    {
+                        width = 11;
+                        text.setString("Selected width: 0");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Num1))
                     {
                         width = 1;
                         text.setString("Selected width: 1");
@@ -454,6 +464,10 @@ int main()
                     text.setString("Selected width: 9");
                 else if (width == 10)
                     text.setString("Selected width: 10");
+                else if (width == 0)
+                    text.setString("Selected width: 0");
+                else if (width == 11)
+                    text.setString("Selected width: 11");
 
                 text.setPosition(150, 0);
                 window.draw(text);
@@ -464,7 +478,7 @@ int main()
                 window.draw(text);
                 window.display(); //показать
 
-                while (heigth == 0)
+                while (heigth == -1)
                 {
                     if (Keyboard::isKeyPressed(Keyboard::Num1))
                     {
@@ -516,6 +530,16 @@ int main()
                         heigth = 10;
                         text.setString("Selected heigth: 10");
                     }
+                    else if (Keyboard::isKeyPressed(Keyboard::Left))
+                    {
+                        heigth = 0;
+                        text.setString("Selected heigth: 0");
+                    }
+                    else if (Keyboard::isKeyPressed(Keyboard::Right))
+                    {
+                        heigth = 11;
+                        text.setString("Selected heigth: 11");
+                    }
                 }
                 text.setPosition(150, 20);
                 window.draw(text);
@@ -523,8 +547,17 @@ int main()
                 while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
             }
 
-            mass[width][heigth] = 90;
-            menu = 5;
+            if (width > 0 && width < 11 && heigth > 0 && heigth < 11)
+            {
+                mass[width][heigth] = 90;
+                menu = 5;
+            }
+            else
+            {
+                mass[width][heigth] = 0;
+                width = heigth = -1;
+                menu = 1;
+            }
 
             break;
         }
@@ -551,7 +584,7 @@ int main()
                 else if (Keyboard::isKeyPressed(Keyboard::Num2))
                 {
                     mass[width][heigth] = 0;
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
             }
@@ -592,13 +625,13 @@ int main()
                 if (Keyboard::isKeyPressed(Keyboard::Num1))
                 {
                     mass[width][heigth] = 1;
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
                 if (Keyboard::isKeyPressed(Keyboard::Num2))
                 {
                     mass[width][heigth] = 2;
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
                 if (Keyboard::isKeyPressed(Keyboard::Num3))
@@ -609,7 +642,7 @@ int main()
                     menu = 9;
                 else if (Keyboard::isKeyPressed(Keyboard::Num6))
                 {
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
             }
@@ -647,25 +680,25 @@ int main()
                 if (Keyboard::isKeyPressed(Keyboard::Num1))
                 {
                     mass[width][heigth] = 21;
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
                 else if (Keyboard::isKeyPressed(Keyboard::Num2))
                 {
                     mass[width][heigth] = 22;
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
                 else if (Keyboard::isKeyPressed(Keyboard::Num3))
                 {
                     mass[width][heigth] = 23;
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
                 else if (Keyboard::isKeyPressed(Keyboard::Num4))
                 {
                     mass[width][heigth] = 24;
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
                 else if (Keyboard::isKeyPressed(Keyboard::Num5))
@@ -705,25 +738,25 @@ int main()
                 if (Keyboard::isKeyPressed(Keyboard::Num1))
                 {
                     mass[width][heigth] = 31;
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
                 else if (Keyboard::isKeyPressed(Keyboard::Num2))
                 {
                     mass[width][heigth] = 32;
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
                 else if (Keyboard::isKeyPressed(Keyboard::Num3))
                 {
                     mass[width][heigth] = 33;
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
                 else if (Keyboard::isKeyPressed(Keyboard::Num4))
                 {
                     mass[width][heigth] = 34;
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
                 else if (Keyboard::isKeyPressed(Keyboard::Num5))
@@ -756,13 +789,13 @@ int main()
                 if (Keyboard::isKeyPressed(Keyboard::Num1))
                 {
                     mass[width][heigth] = 3;
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
                 else if (Keyboard::isKeyPressed(Keyboard::Num2))
                 {
                     mass[width][heigth] = 4;
-                    width = heigth = 0;
+                    width = heigth = -1;
                     menu = 1;
                 }
                 else if (Keyboard::isKeyPressed(Keyboard::Num3))
