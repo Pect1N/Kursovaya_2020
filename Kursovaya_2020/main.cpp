@@ -580,6 +580,10 @@ int main(int argc, char* argv[])
     int pos_int;
     int trap = 0;
     int trasure = 0;
+    int ftrasure = 0;
+    int fwin = 0;
+    int flag = 1; //кто ходит
+    int win = 0;
 
     while (window.isOpen()) //пока открыто окно
     {
@@ -702,9 +706,6 @@ int main(int argc, char* argv[])
 
             clear();
 
-            int flag = 1; //кто ходит
-            int win = 0;
-
             while (win == 0)
             {
                 window.clear();
@@ -725,6 +726,27 @@ int main(int argc, char* argv[])
                 text.setString("Rignt");
                 text.setPosition(150, 80);
                 window.draw(text);
+                if (trap != 0)
+                {
+                    text.setString("Traped");
+                    text.setPosition(0, 130);
+                    window.draw(text);
+                }
+                if (trasure != 0 || ftrasure != 0)
+                {
+                    text.setString("Trasure!");
+                    text.setPosition(0, 150);
+                    window.draw(text);
+                }
+                if (fwin == 1)
+                {
+                    ftrasure = 0;
+                    fwin = 0;
+                    text.setString("Fake Trasure!");
+                    text.setPosition(0, 170);
+                    window.draw(text);
+
+                }
                 window.display(); //показать
 
                 while (flag == 0)
@@ -735,6 +757,11 @@ int main(int argc, char* argv[])
 
                 while (flag == 1 && trap == 0)
                 {
+                    if ((playerx == 0 || playerx == 11 || playery == 0 || playery == 11) && ftrasure == 1)
+                    {
+                        flag = 0;
+                        fwin = 1;
+                    }
                     if ((playerx == 0 || playerx == 11 || playery == 0 || playery == 11) && trasure == 1)
                     {
                         flag = 0;
@@ -792,6 +819,116 @@ int main(int argc, char* argv[])
                         }
                     }
                 }
+                switch (mass_b[playerx][playery])
+                {
+                case 2:
+                {
+                    trap = 3;
+                    mass_b[playerx][playery] = 0;
+                    break;
+                }
+                case 3:
+                {
+                    trasure = 1;
+                    break;
+                }
+                case 4:
+                {
+                    ftrasure = 1;
+                    break;
+                }
+                case 21:
+                {
+                    mass_p[playerx][playery] = 21;
+                    for (int i = 0; i < 13; ++i)
+                    {
+                        for (int j = 0; j < 13; ++j)
+                        {
+                            if (mass_b[i][j] == 31)
+                            {
+                                mass_p[i][j] = 31;
+                                playerx = i;
+                                playery = j;
+                            }
+                        }
+                    }
+                    break;
+                }
+                case 22:
+                {
+                    mass_p[playerx][playery] = 22;
+                    for (int i = 0; i < 13; ++i)
+                    {
+                        for (int j = 0; j < 13; ++j)
+                        {
+                            if (mass_b[i][j] == 32)
+                            {
+                                mass_p[i][j] = 32;
+                                playerx = i;
+                                playery = j;
+                            }
+                        }
+                    }
+                    break;
+                }
+                case 23:
+                {
+                    mass_p[playerx][playery] = 23;
+                    for (int i = 0; i < 13; ++i)
+                    {
+                        for (int j = 0; j < 13; ++j)
+                        {
+                            if (mass_b[i][j] == 33)
+                            {
+                                mass_p[i][j] = 33;
+                                playerx = i;
+                                playery = j;
+                            }
+                        }
+                    }
+                    break;
+                }
+                case 24:
+                {
+                    mass_p[playerx][playery] = 24;
+                    for (int i = 0; i < 13; ++i)
+                    {
+                        for (int j = 0; j < 13; ++j)
+                        {
+                            if (mass_b[i][j] == 34)
+                            {
+                                mass_p[i][j] = 34;
+                                playerx = i;
+                                playery = j;
+                            }
+                        }
+                    }
+                    break;
+                }
+                case 31:
+                {
+                    mass_p[playerx][playery] = 31;
+                    break;
+                }
+                case 32:
+                {
+                    mass_p[playerx][playery] = 32;
+                    break;
+                }
+                case 33:
+                {
+                    mass_p[playerx][playery] = 32;
+                    break;
+                }
+                case 34:
+                {
+                    mass_p[playerx][playery] = 32;
+                    break;
+                }
+                default:
+                    break;
+                }
+
                 if (trap != 0)
                 {
                     flag = 0;
