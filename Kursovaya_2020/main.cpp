@@ -578,6 +578,8 @@ int main(int argc, char* argv[])
     int playery = 10;
     char pos[1];
     int pos_int;
+    int trap = 0;
+    int trasure = 0;
 
     while (window.isOpen()) //пока открыто окно
     {
@@ -731,59 +733,77 @@ int main(int argc, char* argv[])
                     flag = (int)pos[0];
                 }
 
-                while (flag == 1)
+                while (flag == 1 && trap == 0)
                 {
-                    if (Keyboard::isKeyPressed(Keyboard::Down))
+                    if ((playerx == 0 || playerx == 11 || playery == 0 || playery == 11) && trasure == 1)
                     {
-                        if (playerx != 11)
-                        {
-                            flag = 0;
-                            if (mass_b[playerx + 1][playery] == 1)
-                                mass_p[playerx + 1][playery] = 1;
-                            else
-                                ++playerx;
-                        }
-                        while (Keyboard::isKeyPressed(Keyboard::Enter) != 1){ }
+                        flag = 0;
+                        win = 1;
                     }
-                    if (Keyboard::isKeyPressed(Keyboard::Up))
+                    else
                     {
-                        if (playerx != 0)
+                        if (Keyboard::isKeyPressed(Keyboard::Down))
                         {
-                            flag = 0;
-                            if (mass_b[playerx - 1][playery] == 1)
-                                mass_p[playerx - 1][playery] = 1;
-                            else
-                                --playerx;
+                            if (playerx != 11)
+                            {
+                                flag = 0;
+                                if (mass_b[playerx + 1][playery] == 1)
+                                    mass_p[playerx + 1][playery] = 1;
+                                else
+                                    ++playerx;
+                            }
+                            while (Keyboard::isKeyPressed(Keyboard::Enter) != 1) {}
                         }
-                        while (Keyboard::isKeyPressed(Keyboard::Enter) != 1) {}
-                    }
-                    if (Keyboard::isKeyPressed(Keyboard::Left))
-                    {
-                        if (playery != 0)
+                        if (Keyboard::isKeyPressed(Keyboard::Up))
                         {
-                            flag = 0;
-                            if (mass_b[playerx][playery - 1] == 1)
-                                mass_p[playerx][playery - 1] = 1;
-                            else
-                                --playery;
+                            if (playerx != 0)
+                            {
+                                flag = 0;
+                                if (mass_b[playerx - 1][playery] == 1)
+                                    mass_p[playerx - 1][playery] = 1;
+                                else
+                                    --playerx;
+                            }
+                            while (Keyboard::isKeyPressed(Keyboard::Enter) != 1) {}
                         }
-                        while (Keyboard::isKeyPressed(Keyboard::Enter) != 1) {}
-                    }
-                    if (Keyboard::isKeyPressed(Keyboard::Right))
-                    {
-                        if (playery != 11)
+                        if (Keyboard::isKeyPressed(Keyboard::Left))
                         {
-                            flag = 0;
-                            if (mass_b[playerx][playery + 1] == 1)
-                                mass_p[playerx][playery + 1] = 1;
-                            else
-                                ++playery;
+                            if (playery != 0)
+                            {
+                                flag = 0;
+                                if (mass_b[playerx][playery - 1] == 1)
+                                    mass_p[playerx][playery - 1] = 1;
+                                else
+                                    --playery;
+                            }
+                            while (Keyboard::isKeyPressed(Keyboard::Enter) != 1) {}
                         }
-                        while (Keyboard::isKeyPressed(Keyboard::Enter) != 1) {}
+                        if (Keyboard::isKeyPressed(Keyboard::Right))
+                        {
+                            if (playery != 11)
+                            {
+                                flag = 0;
+                                if (mass_b[playerx][playery + 1] == 1)
+                                    mass_p[playerx][playery + 1] = 1;
+                                else
+                                    ++playery;
+                            }
+                            while (Keyboard::isKeyPressed(Keyboard::Enter) != 1) {}
+                        }
                     }
                 }
-                pos[0] = (char)1;
-                send(newConnection, pos, sizeof(pos), NULL);
+                if (trap != 0)
+                {
+                    flag = 0;
+                    --trap;
+                }
+                if (win == 0)
+                {
+                    pos[0] = (char)1;
+                    send(newConnection, pos, sizeof(pos), NULL);
+                }
+                else
+                    menu = 10;
             }
             break;
         }
@@ -1216,7 +1236,6 @@ int main(int argc, char* argv[])
             text.setString("3 - Back");
             text.setPosition(160, 60);
             window.draw(text);
-
             window.display(); //показать
 
             while (menu == 9)
@@ -1237,6 +1256,17 @@ int main(int argc, char* argv[])
                     menu = 6;
             }
             while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
+            break;
+        }
+        case 10:
+        {
+            window.clear(); //очистить
+            show();
+            text.setString("You win!:");
+            text.setPosition(130, 0);
+            window.draw(text);
+            window.display(); //показать
+
             break;
         }
         default:
