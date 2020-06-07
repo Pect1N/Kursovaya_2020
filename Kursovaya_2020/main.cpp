@@ -9,9 +9,10 @@
 
 using namespace sf;
 
-RenderWindow window(VideoMode(800, 600), "Labyrinth"); //создание окна
+RenderWindow window(VideoMode(800, 600), "Labyrinth"); //Creating window
 
 Massive mass;
+std::string way;
 
 void show()
 {
@@ -21,124 +22,130 @@ void show()
         {
             switch (mass.getElemBuild(i, j))
             {
+            case 0:
+            {
+                way = "images/empty.png";
+                break;
+            }
             case 1:
             {
-                picture(window, j, i, "images/wall.png");
+                way = "images/wall.png";
                 break;
             }
             case 2:
             {
-                picture(window, j, i, "images/trap.png");
+                way = "images/trap.png";
                 break;
             }
             case 3:
             {
-                picture(window, j, i, "images/trasure.png");
+                way = "images/trasure.png";
                 break;
             }
             case 4:
             {
-                picture(window, j, i, "images/trasure.png");
+                way = "images/trasure.png";
                 break;
             }
             case 11:
             {
-                picture(window, j, i, "images/1.png");
+                way = "images/1.png";
                 break;
             }
             case 12:
             {
-                picture(window, j, i, "images/2.png");
+                way = "images/2.png";
                 break;
             }
             case 13:
             {
-                picture(window, j, i, "images/3.png");
+                way = "images/3.png";
                 break;
             }
             case 14:
             {
-                picture(window, j, i, "images/4.png");
+                way = "images/4.png";
                 break;
             }
             case 15:
             {
-                picture(window, j, i, "images/5.png");
+                way = "images/5.png";
                 break;
             }
             case 16:
             {
-                picture(window, j, i, "images/6.png");
+                way = "images/6.png";
                 break;
             }
             case 17:
             {
-                picture(window, j, i, "images/7.png");
+                way = "images/7.png";
                 break;
             }
             case 18:
             {
-                picture(window, j, i, "images/8.png");
+                way = "images/8.png";
                 break;
             }
             case 19:
             {
-                picture(window, j, i, "images/9.png");
+                way = "images/9.png";
                 break;
             }
             case 20:
             {
-                picture(window, j, i, "images/10.png");
+                way = "images/10.png";
                 break;
             }
             case 21:
             {
-                picture(window, j, i, "images/pit_in_1.png");
+                way = "images/pit_in_1.png";
                 break;
             }
             case 22:
             {
-                picture(window, j, i, "images/pit_in_2.png");
+                way = "images/pit_in_2.png";
                 break;
             }
             case 23:
             {
-                picture(window, j, i, "images/pit_in_3.png");
+                way = "images/pit_in_3.png";
                 break;
             }
             case 24:
             {
-                picture(window, j, i, "images/pit_in_4.png");
+                way = "images/pit_in_4.png";
                 break;
             }
             case 31:
             {
-                picture(window, j, i, "images/pit_out_1.png");
+                way = "images/pit_out_1.png";
                 break;
             }
             case 32:
             {
-                picture(window, j, i, "images/pit_out_2.png");
+                way = "images/pit_out_2.png";
                 break;
             }
             case 33:
             {
-                picture(window, j, i, "images/pit_out_3.png");
+                way = "images/pit_out_3.png";
                 break;
             }
             case 34:
             {
-                picture(window, j, i, "images/pit_out_4.png");
+                way = "images/pit_out_4.png";
                 break;
             }
             case 90:
             {
-                picture(window, j, i, "images/select.png");
+                way = "images/select.png";
                 break;
             }
             default:
                 break;
             }
+            picture(window, j, i, way);
         }
     }
 
@@ -152,124 +159,130 @@ void show_board()
         {
             switch (mass.getElemPlayer(i, j))
             {
+            case 0:
+            {
+                way = "images/empty.png";
+                break;
+            }
             case 1:
             {
-                picture(window, j, i, "images/wall.png");
+                way = "images/wall.png";
                 break;
             }
             case 2:
             {
-                picture(window, j, i, "images/trap.png");
+                way = "images/trap.png";
                 break;
             }
             case 3:
             {
-                picture(window, j, i, "images/trasure.png");
+                way = "images/trasure.png";
                 break;
             }
             case 4:
             {
-                picture(window, j, i, "images/trasure.png");
+                way = "images/trasure.png";
                 break;
             }
             case 11:
             {
-                picture(window, j, i, "images/1.png");
+                way = "images/1.png";
                 break;
             }
             case 12:
             {
-                picture(window, j, i, "images/2.png");
+                way = "images/2.png";
                 break;
             }
             case 13:
             {
-                picture(window, j, i, "images/3.png");
+                way = "images/3.png";
                 break;
             }
             case 14:
             {
-                picture(window, j, i, "images/4.png");
+                way = "images/4.png";
                 break;
             }
             case 15:
             {
-                picture(window, j, i, "images/5.png");
+                way = "images/5.png";
                 break;
             }
             case 16:
             {
-                picture(window, j, i, "images/6.png");
+                way = "images/6.png";
                 break;
             }
             case 17:
             {
-                picture(window, j, i, "images/7.png");
+                way = "images/7.png";
                 break;
             }
             case 18:
             {
-                picture(window, j, i, "images/8.png");
+                way = "images/8.png";
                 break;
             }
             case 19:
             {
-                picture(window, j, i, "images/9.png");
+                way = "images/9.png";
                 break;
             }
             case 20:
             {
-                picture(window, j, i, "images/10.png");
+                way = "images/10.png";
                 break;
             }
             case 21:
             {
-                picture(window, j, i, "images/pit_in_1.png");
+                way = "images/pit_in_1.png";
                 break;
             }
             case 22:
             {
-                picture(window, j, i, "images/pit_in_2.png");
+                way = "images/pit_in_2.png";
                 break;
             }
             case 23:
             {
-                picture(window, j, i, "images/pit_in_3.png");
+                way = "images/pit_in_3.png";
                 break;
             }
             case 24:
             {
-                picture(window, j, i, "images/pit_in_4.png");
+                way = "images/pit_in_4.png";
                 break;
             }
             case 31:
             {
-                picture(window, j, i, "images/pit_out_1.png");
+                way = "images/pit_out_1.png";
                 break;
             }
             case 32:
             {
-                picture(window, j, i, "images/pit_out_2.png");
+                way = "images/pit_out_2.png";
                 break;
             }
             case 33:
             {
-                picture(window, j, i, "images/pit_out_3.png");
+                way = "images/pit_out_3.png";
                 break;
             }
             case 34:
             {
-                picture(window, j, i, "images/pit_out_4.png");
+                way = "images/pit_out_4.png";
                 break;
             }
             case 90:
             {
-                picture(window, j, i, "images/select.png");
+                way = "images/select.png";
                 break;
             }
             default:
                 break;
             }
+            picture(window, j, i, way);
         }
     }
 
@@ -306,9 +319,9 @@ int main(int argc, char* argv[])
     int ftrasure = 0;
     int fwin = 0;
     int win = 0;
-    int flag = 1; //кто ходит
+    int flag = 1; // Who playing
 
-    while (window.isOpen()) //пока открыто окно
+    while (window.isOpen()) // While window is opened
     {
         Event event;
         while (window.pollEvent(event))
@@ -319,15 +332,15 @@ int main(int argc, char* argv[])
         
         switch (menu)
         {
-        case 0:
+        case 0: // Main menu
         {
-            window.clear(); //очистить
+            window.clear(); //Clear
             show();
             text(window, 150, 0, "Select mod:");
             text(window, 150, 20, "1 - Buidl");
             text(window, 150, 40, "2 - Play");
             text(window, 150, 60, "3 - Exit");
-            window.display(); //показать
+            window.display(); // Show
 
             while (Keyboard::isKeyPressed(Keyboard::Enter) != 1)
             {
@@ -342,12 +355,12 @@ int main(int argc, char* argv[])
         }
         case 1:
         {
-            window.clear(); //очистить
+            window.clear();
             show();
             text(window, 150, 0, "Build mod:");
             text(window, 150, 20, "1 - Select position");
             text(window, 150, 40, "2 - Exit");
-            window.display(); //показать
+            window.display();
 
             while (Keyboard::isKeyPressed(Keyboard::Enter) != 1)
             {
@@ -361,6 +374,7 @@ int main(int argc, char* argv[])
         }
         case 2:
         {
+            // Connection
             WSAData wsaData;
             WORD DLLVersion = MAKEWORD(2, 1);
             if (WSAStartup(DLLVersion, &wsaData) != 0)
@@ -381,9 +395,10 @@ int main(int argc, char* argv[])
             SOCKET newConnection;
             newConnection = accept(sListen, (SOCKADDR*)&addr, &sizeofaddr);
 
-            while (newConnection == 0) {}
+            while (newConnection == 0) {} // While no connection
             std::cout << "Connected" << std::endl;
 
+            // Send build map
             for (int i = 0; i < 13; ++i)
             {
                 for (int j = 0; j < 13; ++j)
@@ -394,6 +409,7 @@ int main(int argc, char* argv[])
                 }
             }
 
+            //Get enemy map
             for (int i = 0; i < 13; ++i)
             {
                 for (int j = 0; j < 13; ++j)
@@ -403,6 +419,7 @@ int main(int argc, char* argv[])
                 }
             }
 
+            // Add in player map enemy map (for gates)
             for (int i = 0; i < 13; ++i)
             {
                 for (int j = 0; j < 13; ++j)
@@ -410,8 +427,8 @@ int main(int argc, char* argv[])
                     mass.setElemPlayer(i, j, mass.getElemBuild(i, j));
                 }
             }
-
-            clear();
+            
+            clear(); // clear player map
 
             while (win == 0)
             {
@@ -434,7 +451,7 @@ int main(int argc, char* argv[])
                     fwin = 0;
                     text(window, 0, 170, "Fake Trasure!");
                 }
-                window.display(); //показать
+                window.display();
 
                 while (flag == 0)
                 {
@@ -577,7 +594,8 @@ int main(int argc, char* argv[])
                 }
                 case 24:
                 {
-                    mass.setElemPlayer(playerx, playery, 24);                    for (int i = 0; i < 13; ++i)
+                    mass.setElemPlayer(playerx, playery, 24);
+                    for (int i = 0; i < 13; ++i)
                     {
                         for (int j = 0; j < 13; ++j)
                         {
@@ -638,17 +656,17 @@ int main(int argc, char* argv[])
         }
         case 4:
         {
-            window.clear(); //очистить
+            window.clear();
             show();
             if (width == -1 && heigth == -1)
             {
                 text(window, 150, 0, "Select width:");
-                window.display(); //показать
+                window.display();
             }
 
             while (width == -1 && heigth == -1)
             {
-                window.clear(); //очистить
+                window.clear();
                 show();
                 while (width == -1)
                 {
@@ -713,10 +731,10 @@ int main(int argc, char* argv[])
                         text(window, 150, 0, "Selected width: 10");
                     }
                 }
-                window.display(); //показать
+                window.display();
                 while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
 
-                window.clear(); //очистить
+                window.clear();
                 show();
                 if (width == 0)
                     text(window, 150, 0, "Selected width: 0");
@@ -742,10 +760,10 @@ int main(int argc, char* argv[])
                     text(window, 150, 0, "Selected width: 10");
                 else if (width == 11)
                     text(window, 150, 0, "Selected width: 11");
-                window.display(); //показать
+                window.display();
 
                 text(window, 150, 20, "Select heigth:");
-                window.display(); //показать
+                window.display();
 
                 while (heigth == -1)
                 {
@@ -810,7 +828,7 @@ int main(int argc, char* argv[])
                         text(window, 150, 20, "Selected heigth: 11");
                     }
                 }
-                window.display(); //показать
+                window.display();
                 while (Keyboard::isKeyPressed(Keyboard::Enter) != 1);
             }
 
@@ -830,12 +848,12 @@ int main(int argc, char* argv[])
         }
         case 5:
         {
-            window.clear(); //очистить
+            window.clear();
             show();
             text(window, 150, 0, "What to do:");
             text(window, 150, 20, "1 - Build");
             text(window, 150, 40, "2 - Clear");
-            window.display(); //показать
+            window.display();
 
             while (menu == 5)
             {
@@ -854,7 +872,7 @@ int main(int argc, char* argv[])
         }
         case 6:
         {
-            window.clear(); //очистить
+            window.clear();
             show();
             text(window, 150, 0, "What to build:");
             text(window, 150, 20, "1 - Wall");
@@ -863,7 +881,7 @@ int main(int argc, char* argv[])
             text(window, 150, 80, "4 - Pit out");
             text(window, 150, 100, "5 - Trasure");
             text(window, 150, 120, "6 - Exit");
-            window.display(); //показать
+            window.display();
 
             while (menu == 6)
             {
@@ -897,7 +915,7 @@ int main(int argc, char* argv[])
         }
         case 7:
         {
-            window.clear(); //очистить
+            window.clear();
             show();
             text(window, 150, 0, "Select pit:");
             text(window, 150, 20, "1 - Pit 1");
@@ -905,7 +923,7 @@ int main(int argc, char* argv[])
             text(window, 150, 60, "3 - Pit 3");
             text(window, 150, 80, "4 - Pit 4");
             text(window, 150, 100, "5 - Back");
-            window.display(); //показать
+            window.display();
 
             while (menu == 7)
             {
@@ -942,7 +960,7 @@ int main(int argc, char* argv[])
         }
         case 8:
         {
-            window.clear(); //очистить
+            window.clear();
             show();
             text(window, 150, 0, "Select pit:");
             text(window, 150, 20, "1 - Pit 1");
@@ -950,7 +968,7 @@ int main(int argc, char* argv[])
             text(window, 150, 60, "3 - Pit 3");
             text(window, 150, 80, "4 - Pit 4");
             text(window, 150, 100, "5 - Back");
-            window.display(); //показать
+            window.display();
 
             while (menu == 8)
             {
@@ -986,13 +1004,13 @@ int main(int argc, char* argv[])
         }
         case 9:
         {
-            window.clear(); //очистить
+            window.clear();
             show();
             text(window, 150, 0, "Select trasure:");
             text(window, 150, 20, "1 - Real");
             text(window, 150, 40, "2 - Unreal");
             text(window, 150, 60, "3 - Back");
-            window.display(); //показать
+            window.display();
 
             while (menu == 9)
             {
@@ -1016,10 +1034,10 @@ int main(int argc, char* argv[])
         }
         case 10:
         {
-            window.clear(); //очистить
+            window.clear();
             show();
             text(window, 130, 0, "You win!:");
-            window.display(); //показать
+            window.display();
 
             break;
         }
